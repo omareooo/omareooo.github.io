@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ziba, Be My Valentine? 💕</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #ffeef8 0%, #ffe0f0 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            text-align: center;
+            background: white;
+            padding: 40px;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(255, 105, 180, 0.3);
+            max-width: 500px;
+            width: 100%;
+        }
+
+        h1 {
+            color: #ff1493;
+            margin-bottom: 20px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(255, 105, 180, 0.3);
+        }
+
+        .heart-image {
+            width: 200px;
+            height: 200px;
+            margin: 20px auto;
+            background: linear-gradient(135deg, #ff6b9d 0%, #ff1493 100%);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 100px;
+            box-shadow: 0 10px 30px rgba(255, 20, 147, 0.4);
+        }
+
+        .question {
+            font-size: 1.5em;
+            color: #ff1493;
+            margin: 30px 0;
+            font-weight: bold;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            align-items: center;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            border: none;
+            border-radius: 15px;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        #yesBtn {
+            background: linear-gradient(135deg, #ff6b9d 0%, #ff1493 100%);
+            color: white;
+            padding: 15px 40px;
+        }
+
+        #yesBtn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(255, 20, 147, 0.4);
+        }
+
+        #noBtn {
+            background: linear-gradient(135deg, #ddd 0%, #bbb 100%);
+            color: #666;
+            padding: 15px 40px;
+        }
+
+        #noBtn:hover {
+            background: linear-gradient(135deg, #ccc 0%, #aaa 100%);
+        }
+
+        .celebration {
+            display: none;
+        }
+
+        .celebration.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .celebration h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+
+        .celebration p {
+            font-size: 1.5em;
+            color: #ff1493;
+            margin: 20px 0;
+        }
+
+        .hearts {
+            font-size: 3em;
+            animation: heartbeat 1s infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        .confetti {
+            position: fixed;
+            top: -10px;
+            animation: fall 3s linear infinite;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(100vh) rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="question-section">
+            <h1>Hey Ziba! 💕</h1>
+            <div class="heart-image">💖</div>
+            <p class="question">Will you be my Valentine?</p>
+            <p style="color: #ff69b4; font-size: 1.1em; margin-top: 10px;">~ Omar 💕</p>
+            <div class="buttons">
+                <button id="yesBtn">Yes! 💕</button>
+                <button id="noBtn">No 😢</button>
+            </div>
+        </div>
+
+        <div id="celebration-section" class="celebration">
+            <div class="hearts">💖💕💗💓💝</div>
+            <h1>Yay! 🎉</h1>
+            <p>Ziba, you just made me the happiest person ever! 💕</p>
+            <p>Can't wait to spend Valentine's Day with you! 🥰</p>
+            <p style="font-size: 1.2em; margin-top: 20px;">Love, Omar 💖</p>
+            <div class="hearts">💖💕💗💓💝</div>
+        </div>
+    </div>
+
+    <script>
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const questionSection = document.getElementById('question-section');
+        const celebrationSection = document.getElementById('celebration-section');
+
+        let yesPadding = 15;
+        let yesFont = 1.2;
+        let noPadding = 15;
+        let noFont = 1.2;
+
+        noBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            // Increase yes button size
+            yesPadding += 5;
+            yesFont += 0.1;
+            yesBtn.style.padding = `${yesPadding}px ${yesPadding * 2}px`;
+            yesBtn.style.fontSize = `${yesFont}em`;
+            
+            // Decrease no button size
+            noPadding = Math.max(5, noPadding - 3);
+            noFont = Math.max(0.6, noFont - 0.1);
+            noBtn.style.padding = `${noPadding}px ${noPadding * 2}px`;
+            noBtn.style.fontSize = `${noFont}em`;
+            
+            // Make it harder to click no
+            if (noPadding <= 5) {
+                noBtn.style.opacity = '0.5';
+            }
+        });
+
+        yesBtn.addEventListener('click', () => {
+            // Create confetti
+            for (let i = 0; i < 50; i++) {
+                createConfetti();
+            }
+            
+            // Show celebration
+            questionSection.style.display = 'none';
+            celebrationSection.classList.add('active');
+        });
+
+        function createConfetti() {
+            const confetti = document.createElement('div');
+            confetti.className = 'confetti';
+            confetti.style.left = Math.random() * 100 + '%';
+            confetti.style.animationDelay = Math.random() * 3 + 's';
+            confetti.style.fontSize = (Math.random() * 20 + 20) + 'px';
+            
+            const emojis = ['💕', '💖', '💗', '💓', '💝', '❤️', '🌹'];
+            confetti.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+            
+            document.body.appendChild(confetti);
+            
+            setTimeout(() => confetti.remove(), 3000);
+        }
+    </script>
+</body>
+</html>
